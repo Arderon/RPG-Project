@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7164490c47817a2458fd905ecf8d4445, type: 3}
+  m_Name: Staff
+  m_EditorClassIdentifier: 
+  weaponPrefab: {fileID: 7527730725148965979, guid: 79e208b7fdf5ede418be67b03c3d9a06, type: 3}
+  projectilePrefab: {fileID: 5855430721116209309, guid: 933a97f303f03fb40a48858c82b0abe6, type: 3}
+  weaponOverride: {fileID: 22100000, guid: 9dbf03442531f764d86ff1f9941a5fed, type: 2}
+  damage: 15
+  range: 20
+  isRightHanded: 1
