@@ -17,6 +17,7 @@ namespace RPG.combat
         [SerializeField] bool homing;
         [SerializeField] bool isStuck;
 
+        private GameObject insigator;
         private Health target;
         private float damage;
         private bool isStoped = false;
@@ -54,9 +55,10 @@ namespace RPG.combat
             return target.transform.position + Vector3.up * targetCollider.height / 2;
         }
 
-        public void SetTarget(Health target, float damage)
+        public void SetTarget(Health target, GameObject instigator, float damage)
         {
             this.target = target;
+            this.insigator = instigator;
             this.damage = damage;
         }
 
@@ -71,7 +73,7 @@ namespace RPG.combat
 
         private void OnHit(Collider other)
         {
-            other.GetComponent<Health>().TakeDamage(damage);
+            other.GetComponent<Health>().TakeDamage(insigator, damage);
             if (isStuck)
             {
                 isStoped = true;

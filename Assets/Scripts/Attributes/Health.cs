@@ -21,24 +21,28 @@ namespace RPG.Atrributes
             return isDead;
         }
 
-        private void Update()
-        {
-            if (health == 0)
-            {
-                Die();
-            }
-        }
-
-        private void Die()
+        private void Die(GameObject instigator)
         {
             if (isDead) return;
             isDead = true;
             GetComponent<Animator>().SetTrigger("die");
+
         }
 
-        public void TakeDamage(float damage)
+        private void AwardExperiance(GameObject instigator)
+        {
+            float xpReward = gameObject.GetComponent<BaseStats>().GetExperianceReward();
+            instigator.GetComponent<Experiance>().GainExperiance(xpReward);
+        }
+
+        public void TakeDamage(GameObject instigator, float damage)
         {
             health = Mathf.Max(health - damage, 0);
+            if (health == 0)
+            {
+                Die(instigator);
+                AwardExperiance(instigator);
+            }
         }
 
         public float GetPercentage()
@@ -56,7 +60,7 @@ namespace RPG.Atrributes
             health = (float)state;
             if(health <= 0)
             {
-                Die();
+                Die(gameObject);
             }
         }
     }

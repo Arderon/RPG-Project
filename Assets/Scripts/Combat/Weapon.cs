@@ -55,11 +55,11 @@ namespace RPG.Combat
             return projectilePrefab;
         }
 
-        public void LaunchProjectile(Transform rightHand, Transform leftHand, Health target)
+        public void LaunchProjectile(Transform rightHand, Transform leftHand, Health target, GameObject instigator)
         {
             Transform currentHand = CurrentHand(rightHand, leftHand);
             GameObject projectile = Instantiate(projectilePrefab, currentHand.position, currentHand.rotation);
-            projectile.GetComponent<Projectile>().SetTarget(target, damage);
+            projectile.GetComponent<Projectile>().SetTarget(target, instigator, damage);
         }
 
         public bool HasProjectile()
