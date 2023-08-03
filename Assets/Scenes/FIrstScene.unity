@@ -474,8 +474,9 @@ GameObject:
   - component: {fileID: 138617587}
   - component: {fileID: 138617586}
   - component: {fileID: 138617589}
+  - component: {fileID: 138617590}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: HUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -580,6 +581,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHPText: {fileID: 1620353166}
   targetHPText: {fileID: 860782243}
+--- !u!114 &138617590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138617584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b83c383c425438a40bd356509500c35d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  experianceValueText: {fileID: 1451383220}
 --- !u!1001 &196106636
 PrefabInstance:
   m_ObjectHideFlags: 0
