@@ -15,7 +15,6 @@ namespace RPG.Movement
         private void Start()
         {
             meshAgent = GetComponent<NavMeshAgent>();
-            meshAgent.speed = speed;
         }
 
         private void Update()

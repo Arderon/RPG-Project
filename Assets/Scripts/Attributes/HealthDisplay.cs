@@ -11,8 +11,8 @@ public class HealthDisplay : MonoBehaviour
     private Health playerHealth;
     private Health target;
     private Health previousTarget;
-    public TextMeshProUGUI playerHPText;
-    public TextMeshProUGUI targetHPText;
+    [SerializeField] TextMeshProUGUI playerHPText;
+    [SerializeField] TextMeshProUGUI targetHPText;
     void Awake()
     {
         playerHealth = GameObject.FindWithTag("Player").GetComponent<Health>();
