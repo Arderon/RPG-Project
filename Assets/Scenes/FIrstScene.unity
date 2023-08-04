@@ -6764,6 +6764,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1945200766434795336, guid: b1280d4b93b777d4aa54a2bfbf4f9f8b, type: 3}
+      propertyPath: levelUpEffect
+      value: 
+      objectReference: {fileID: 1935474566410380145, guid: 948b932a450ceb1408246078f0adf2ce, type: 3}
+    - target: {fileID: 1945200766434795336, guid: b1280d4b93b777d4aa54a2bfbf4f9f8b, type: 3}
+      propertyPath: levelUpPrefab
+      value: 
+      objectReference: {fileID: 1935474566410380145, guid: 948b932a450ceb1408246078f0adf2ce, type: 3}
+    - target: {fileID: 1945200766434795336, guid: b1280d4b93b777d4aa54a2bfbf4f9f8b, type: 3}
       propertyPath: startingLevel
       value: 1
       objectReference: {fileID: 0}

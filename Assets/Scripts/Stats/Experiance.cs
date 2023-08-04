@@ -9,6 +9,7 @@ namespace RPG.Stats
         [SerializeField] float experiancePoints = 0;
 
         public event Action onExperianceGained;
+        public event Action onLevelUp;
 
         public void GainExperiance(float experiance)
         {

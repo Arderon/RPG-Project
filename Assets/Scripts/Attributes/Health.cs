@@ -16,6 +16,20 @@ namespace RPG.Atrributes
             health = GetComponent<BaseStats>().GetStat(Stat.Health);
         }
 
+        private void Start()
+        {
+            Experiance experiance = GetComponent<Experiance>();
+            if (experiance != null)
+            {
+                experiance.onExperianceGained += RestoreHealth;
+            }
+        }
+
+        public void RestoreHealth()
+        {
+            health = GetComponent<BaseStats>().GetStat(Stat.Health);
+        }
+
         public bool IsDead()
         {
             return isDead;
