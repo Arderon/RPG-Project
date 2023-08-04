@@ -9,7 +9,7 @@ namespace RPG.Movement
 {
     public class Mover : MonoBehaviour, IAction, ISaveable
     {
-        [SerializeField] const float speed = 5f;
+        [SerializeField] const float speed = 5.66f;
         private NavMeshAgent meshAgent;
 
         private void Start()

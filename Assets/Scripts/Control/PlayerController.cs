@@ -4,6 +4,7 @@ using RPG.Movement;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 using RPG.Atrributes;
+using UnityEngine.AI;
 
 namespace RPG.Control
 {
@@ -30,6 +31,11 @@ namespace RPG.Control
 
         bool InteractWithMovement()
         {
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                GetComponent<NavMeshAgent>().isStopped = true;
+                return false;
+            }
             RaycastHit hit;
             bool isHit = Physics.Raycast(CursorRay(), out hit);
             if (isHit)
