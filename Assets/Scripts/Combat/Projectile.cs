@@ -40,7 +40,7 @@ namespace RPG.combat
             }
             else if (!isStoped)
             {
-                StartCoroutine(DestroyCountDown());
+                StartCoroutine(DestroyCountDown(5f));
             }
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
         }   
@@ -80,6 +80,7 @@ namespace RPG.combat
                 damage = 0;
                 Destroy(trail);
                 transform.SetParent(other.GetComponent<Fighter>().GetHips());
+                DestroyCountDown(20f);
             }
             else
             {
@@ -88,9 +89,9 @@ namespace RPG.combat
             }
         }
 
-        IEnumerator DestroyCountDown()
+        IEnumerator DestroyCountDown(float seconds)
         {
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(seconds);
             Destroy(gameObject);
         }
     }

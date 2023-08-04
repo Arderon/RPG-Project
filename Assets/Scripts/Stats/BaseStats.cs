@@ -12,6 +12,7 @@ namespace RPG.Stats
         [SerializeField] CharacterClass characterClass;
         [SerializeField] Progression progression = null;
         [SerializeField] GameObject levelUpPrefab = null;
+        [SerializeField] bool shouldUseModifiers = false;
 
         private GameObject levelUpEffect;
         int currentLevel = 0;
@@ -55,8 +56,44 @@ namespace RPG.Stats
 
         public float GetStat(Stat stat)
         {
-            return progression.GetStat(stat,characterClass, GetLevel());
+            return (GetBaseStat(stat) + GetAdditiveModifier(stat)) * (1 + GetPercentageModifier(stat) / 100);
         }
+
+        private float GetBaseStat(Stat stat)
+        {
+            return progression.GetStat(stat, characterClass, GetLevel());
+        }
+
+        private float GetAdditiveModifier(Stat stat)
+        {
+            if (!shouldUseModifiers) return 0;
+
+            float total = 0;
+            foreach(IModifierProvider provider in GetComponents<IModifierProvider>())
+            {
+                foreach (float modifiers in provider.GetAdditiveModifiers(stat))
+                {
+                    total += modifiers;
+                }
+            }
+            return total;
+        }
+
+        private float GetPercentageModifier(Stat stat)
+        {
+            if (!shouldUseModifiers) return 0;
+
+            float total = 0;
+            foreach (IModifierProvider provider in GetComponents<IModifierProvider>())
+            {
+                foreach (float modifiers in provider.GetPercentageModifiers(stat))
+                {
+                    total += modifiers;
+                }
+            }
+            return total;
+        }
+
 
         public int GetLevel()
         {
@@ -67,7 +104,7 @@ namespace RPG.Stats
             return currentLevel;
         }
 
-        public int CalculateLevel()
+        private int CalculateLevel()
         {
             Experiance experience = GetComponent<Experiance>();
             if (experience == null) return startingLevel;

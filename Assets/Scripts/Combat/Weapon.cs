@@ -15,6 +15,8 @@ namespace RPG.Combat
         [SerializeField] float range = 2f;
         [SerializeField] bool isRightHanded = true;
 
+        private float percentageBonus = 2;
+
         public GameObject SpawnWeapon(Transform rightHand, Transform leftHand, Animator animator)
         {
             if (weaponPrefab != null)
@@ -43,6 +45,11 @@ namespace RPG.Combat
         public float GetDamage()
         {
             return damage;
+        }
+
+        public float GetPercentageBonus()
+        {
+            return percentageBonus;
         }
 
         public float GetRange() 
