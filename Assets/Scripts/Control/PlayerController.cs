@@ -5,6 +5,7 @@ using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 using RPG.Atrributes;
 using UnityEngine.AI;
+using System;
 
 namespace RPG.Control
 {
@@ -14,6 +15,22 @@ namespace RPG.Control
         private Mover mover;
         private Health health;
         private bool isEnabled = true;
+
+        enum CursorType
+        {
+            None,
+            Movement,
+            Combat
+        }
+
+        [System.Serializable]
+        struct CursorMapping{
+            public CursorType type;
+            public Texture2D texture;
+            public Vector2 hotspot;
+        }   
+
+        [SerializeField] CursorMapping[] cursorMapping = null;
 
         private void Start()
         {
@@ -27,6 +44,7 @@ namespace RPG.Control
             if (health.IsDead()) return;
             if (InteractWithCombat()) return;
             if (InteractWithMovement()) return;
+            SetCursor(CursorType.None);
         }
 
         bool InteractWithMovement()
@@ -46,6 +64,7 @@ namespace RPG.Control
                     mover.StartMoveAction(hit.point);
 
                 }
+                SetCursor(CursorType.Movement);
                 return true;
             }
             return false;  
@@ -68,9 +87,29 @@ namespace RPG.Control
                 {
                     fighter.Atack(target.gameObject);
                 }
+                SetCursor(CursorType.Combat);
                 return true;
             }
             return false;
+        }
+
+        private void SetCursor(CursorType type)
+        {
+            if (cursorMapping == null) return;
+            CursorMapping mapping = GetCursorMapping(type);
+            Cursor.SetCursor(mapping.texture, mapping.hotspot, CursorMode.Auto);
+        }
+
+        private CursorMapping GetCursorMapping(CursorType type)
+        {
+            foreach(CursorMapping mapping in cursorMapping)
+            {
+                if (mapping.type == type)
+                {
+                    return mapping;
+                }
+            }
+            return cursorMapping[0];
         }
 
         private Ray CursorRay()
