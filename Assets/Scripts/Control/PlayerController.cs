@@ -1,11 +1,10 @@
-using RPG.Core;
+using RPG.Atrributes;
 using RPG.Combat;
+using RPG.Core;
 using RPG.Movement;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
-using RPG.Atrributes;
 using UnityEngine.AI;
-using System;
+using UnityEngine.EventSystems;
 
 namespace RPG.Control
 {
@@ -20,15 +19,17 @@ namespace RPG.Control
         {
             None,
             Movement,
-            Combat
+            Combat,
+            UI
         }
 
         [System.Serializable]
-        struct CursorMapping{
+        struct CursorMapping
+        {
             public CursorType type;
             public Texture2D texture;
             public Vector2 hotspot;
-        }   
+        }
 
         [SerializeField] CursorMapping[] cursorMapping = null;
 
@@ -41,10 +42,25 @@ namespace RPG.Control
         void Update()
         {
             if (!isEnabled) return;
-            if (health.IsDead()) return;
+            if (InteractWithUi())
+            {
+                SetCursor(CursorType.UI);
+                return;
+            }
+            if (health.IsDead())
+            {
+                SetCursor(CursorType.None);
+                return;
+            }
+
             if (InteractWithCombat()) return;
             if (InteractWithMovement()) return;
             SetCursor(CursorType.None);
+        }
+
+        private bool InteractWithUi()
+        {
+            return EventSystem.current.IsPointerOverGameObject();
         }
 
         bool InteractWithMovement()
@@ -60,14 +76,14 @@ namespace RPG.Control
             {
                 if (Input.GetMouseButton(1))
                 {
-/*                    GetComponent<Fighter>().Cancel();*/
+                    /*                    GetComponent<Fighter>().Cancel();*/
                     mover.StartMoveAction(hit.point);
 
                 }
                 SetCursor(CursorType.Movement);
                 return true;
             }
-            return false;  
+            return false;
         }
 
         bool InteractWithCombat()
@@ -79,7 +95,7 @@ namespace RPG.Control
                 if (target == null) continue;
 
 
-                if (!fighter.CanAttack(target.gameObject)) 
+                if (!fighter.CanAttack(target.gameObject))
                 {
                     continue;
                 }
@@ -102,7 +118,7 @@ namespace RPG.Control
 
         private CursorMapping GetCursorMapping(CursorType type)
         {
-            foreach(CursorMapping mapping in cursorMapping)
+            foreach (CursorMapping mapping in cursorMapping)
             {
                 if (mapping.type == type)
                 {
