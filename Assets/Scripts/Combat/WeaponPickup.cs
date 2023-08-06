@@ -1,3 +1,4 @@
+using RPG.Control;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,7 +6,7 @@ using UnityEngine;
 
 namespace RPG.Combat
 {
-    public class WeaponPickup : MonoBehaviour
+    public class WeaponPickup : MonoBehaviour, IReycastable
     {
         [SerializeField] Weapon weaponPrefab;
         [SerializeField] float respawnTime = 5;
@@ -15,9 +16,14 @@ namespace RPG.Combat
             if (other.CompareTag("Player"))
             {
                 if (other.GetComponent<Fighter>().GetCurrentWeapon() == weaponPrefab) return;
-                other.GetComponent<Fighter>().EquipWeapon(weaponPrefab);
-                StartCoroutine(HideForSeconds(respawnTime));
+                PickupWeapon(other.GetComponent<Fighter>());
             }
+        }
+
+        private void PickupWeapon(Fighter fighter)
+        {
+            fighter.GetComponent<Fighter>().EquipWeapon(weaponPrefab);
+            StartCoroutine(HideForSeconds(respawnTime));
         }
 
         private IEnumerator HideForSeconds(float time)
@@ -30,12 +36,12 @@ namespace RPG.Combat
         private void HidePickup()
         {
             GetComponent<Collider>().enabled = false;
-            foreach(Transform child in transform)
+            foreach (Transform child in transform)
             {
                 child.gameObject.SetActive(false);
             }
         }
-        
+
         private void ShowPickup()
         {
             GetComponent<Collider>().enabled = true;
@@ -43,6 +49,20 @@ namespace RPG.Combat
             {
                 child.gameObject.SetActive(true);
             }
+        }
+
+        public bool HandleRaycast(PlayerController playerController)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                PickupWeapon(playerController.GetComponent<Fighter>());
+            }
+            return true;
+        }
+
+        public CursorType GetCursorType()
+        {
+            return CursorType.Item;
         }
     }
 

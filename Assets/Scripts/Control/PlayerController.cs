@@ -2,6 +2,7 @@ using RPG.Atrributes;
 using RPG.Combat;
 using RPG.Core;
 using RPG.Movement;
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
@@ -14,14 +15,6 @@ namespace RPG.Control
         private Mover mover;
         private Health health;
         private bool isEnabled = true;
-
-        enum CursorType
-        {
-            None,
-            Movement,
-            Combat,
-            UI
-        }
 
         [System.Serializable]
         struct CursorMapping
@@ -53,7 +46,7 @@ namespace RPG.Control
                 return;
             }
 
-            if (InteractWithCombat()) return;
+            if (InteractWithComponent()) return;
             if (InteractWithMovement()) return;
             SetCursor(CursorType.None);
         }
@@ -63,6 +56,36 @@ namespace RPG.Control
             return EventSystem.current.IsPointerOverGameObject();
         }
 
+        private bool InteractWithComponent()
+        {
+            RaycastHit[] hits = SortedHits();
+            foreach (RaycastHit hit in hits)
+            {
+                IReycastable[] reycastables = hit.transform.GetComponents<IReycastable>();
+                foreach (IReycastable reycastable in reycastables)
+                {
+                    if (reycastable.HandleRaycast(this))
+                    {
+                        SetCursor(reycastable.GetCursorType());
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        private RaycastHit[] SortedHits()
+        {
+            RaycastHit[] hits = Physics.RaycastAll(CursorRay());
+            float[] distances = new float[hits.Length];
+            for (int i = 0; i < hits.Length; i++)
+            {
+                distances[0] = hits[i].distance;
+            }
+            Array.Sort(distances, hits);
+            return hits;
+        }
+
         bool InteractWithMovement()
         {
             if (Input.GetKey(KeyCode.LeftShift))
@@ -70,15 +93,14 @@ namespace RPG.Control
                 GetComponent<NavMeshAgent>().isStopped = true;
                 return false;
             }
-            RaycastHit hit;
-            bool isHit = Physics.Raycast(CursorRay(), out hit);
-            if (isHit)
+            Vector3 target;
+            bool hasHit = RaycastNavMesh(out target);
+
+            if (hasHit)
             {
                 if (Input.GetMouseButton(1))
                 {
-                    /*                    GetComponent<Fighter>().Cancel();*/
-                    mover.StartMoveAction(hit.point);
-
+                    mover.StartMoveAction(target);
                 }
                 SetCursor(CursorType.Movement);
                 return true;
@@ -86,26 +108,22 @@ namespace RPG.Control
             return false;
         }
 
-        bool InteractWithCombat()
+        private bool RaycastNavMesh(out Vector3 target)
         {
-            RaycastHit[] hits = Physics.RaycastAll(CursorRay());
-            foreach (RaycastHit hit in hits)
+            RaycastHit hit;
+            bool isHit = Physics.Raycast(CursorRay(), out hit);
+            if (isHit)
             {
-                CombatTarget target = hit.transform.GetComponent<CombatTarget>();
-                if (target == null) continue;
-
-
-                if (!fighter.CanAttack(target.gameObject))
+                target = hit.point;
+                NavMeshHit newHit;
+                if (NavMesh.SamplePosition(hit.point, out newHit, 1.0f, NavMesh.AllAreas))
                 {
-                    continue;
+                    Vector3 result = newHit.position;
+                    return true;
                 }
-                if (Input.GetMouseButton(1))
-                {
-                    fighter.Atack(target.gameObject);
-                }
-                SetCursor(CursorType.Combat);
-                return true;
+                return false;
             }
+            target = new Vector3();
             return false;
         }
 
@@ -144,4 +162,3 @@ namespace RPG.Control
         }
     }
 }
-
