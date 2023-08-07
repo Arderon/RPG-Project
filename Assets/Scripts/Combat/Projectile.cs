@@ -6,11 +6,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace RPG.combat
 {
     public class Projectile : MonoBehaviour
     {
+        [SerializeField] UnityEvent ProjectileHit;
+        [SerializeField] UnityEvent LaunchProjectile;
         [SerializeField] float speed = 20f;
         [SerializeField] GameObject trail;
         [SerializeField] GameObject onHitEffect;
@@ -25,6 +28,7 @@ namespace RPG.combat
         private void Start()
         {
             transform.LookAt(GetAimLocation());
+            LaunchProjectile.Invoke();
         }
 
         void Update()
@@ -68,6 +72,7 @@ namespace RPG.combat
             if (other.gameObject == target.gameObject)
             {
                 OnHit(other);
+                ProjectileHit.Invoke();
             }
         }
 

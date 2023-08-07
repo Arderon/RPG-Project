@@ -9,6 +9,7 @@ namespace RPG.Atrributes
     public class Health : MonoBehaviour, ISaveable
     {
         [SerializeField] UnityEvent<float> takeDamage;
+        [SerializeField] UnityEvent playerDie;
         float health;
         bool isDead = false;
 
@@ -54,13 +55,15 @@ namespace RPG.Atrributes
 
         public void TakeDamage(GameObject instigator, float damage)
         {
-            print(gameObject.name + " took damage: " + damage);
-
             health = Mathf.Max(health - damage, 0);
             takeDamage.Invoke(damage);
             if (health == 0)
             {
                 Die(instigator);
+                if(gameObject.tag == "Player")
+                {
+                    playerDie.Invoke();
+                }
                 AwardExperiance(instigator);
             }
         }
