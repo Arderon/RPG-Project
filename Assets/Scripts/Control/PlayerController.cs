@@ -3,6 +3,7 @@ using RPG.Combat;
 using RPG.Core;
 using RPG.Movement;
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
@@ -25,6 +26,7 @@ namespace RPG.Control
 
         [SerializeField] CursorMapping[] cursorMapping = null;
         [SerializeField] float navPathMaxLength;
+        [SerializeField] Transform camera;
 
         private void Start()
         {
@@ -33,6 +35,8 @@ namespace RPG.Control
         }
         void Update()
         {
+            /*camera.transform.rotation = Quaternion.Euler(0.0f, 0.0f, gameObject.transform.rotation.z * -1.0f);*/
+
             if (!isEnabled) return;
             if (InteractWithUi())
             {
