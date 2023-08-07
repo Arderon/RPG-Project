@@ -6,7 +6,7 @@ namespace RPG.Core
 {
     public class CameraFacing : MonoBehaviour
     {
-        private void Update()
+        private void LateUpdate()
         {
             transform.LookAt(Camera.main.transform.position);
         }
