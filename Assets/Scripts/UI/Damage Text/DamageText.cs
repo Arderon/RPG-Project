@@ -6,16 +6,9 @@ namespace RPG.UI.DamageText
 {
     public class DamageText : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
+        public void DestroyText()
         {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            Destroy(gameObject);
         }
     }
 

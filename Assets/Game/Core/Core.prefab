@@ -538,50 +538,6 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 5049890390384436451}
-    - target: {fileID: 2499140, guid: 75ce75d24a2ac4644b8fe4c295c3649c, type: 3}
-      propertyPath: navPathMaxLength
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 2499140, guid: 75ce75d24a2ac4644b8fe4c295c3649c, type: 3}
-      propertyPath: cursorMapping.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2499140, guid: 75ce75d24a2ac4644b8fe4c295c3649c, type: 3}
-      propertyPath: cursorMapping.Array.data[1].type
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2499140, guid: 75ce75d24a2ac4644b8fe4c295c3649c, type: 3}
-      propertyPath: cursorMapping.Array.data[2].type
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2499140, guid: 75ce75d24a2ac4644b8fe4c295c3649c, type: 3}
-      propertyPath: cursorMapping.Array.data[3].type
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2499140, guid: 75ce75d24a2ac4644b8fe4c295c3649c, type: 3}
-      propertyPath: cursorMapping.Array.data[4].type
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2499140, guid: 75ce75d24a2ac4644b8fe4c295c3649c, type: 3}
-      propertyPath: cursorMapping.Array.data[0].texture
-      value: 
-      objectReference: {fileID: 2800000, guid: 21628736160fcc9488493401da3ef621, type: 3}
-    - target: {fileID: 2499140, guid: 75ce75d24a2ac4644b8fe4c295c3649c, type: 3}
-      propertyPath: cursorMapping.Array.data[1].texture
-      value: 
-      objectReference: {fileID: 2800000, guid: 6fdfcd4167ed5e7488584241bb671bb2, type: 3}
-    - target: {fileID: 2499140, guid: 75ce75d24a2ac4644b8fe4c295c3649c, type: 3}
-      propertyPath: cursorMapping.Array.data[2].texture
-      value: 
-      objectReference: {fileID: 2800000, guid: 2d18e23e3ce249b4489b8bcdd02d3f48, type: 3}
-    - target: {fileID: 2499140, guid: 75ce75d24a2ac4644b8fe4c295c3649c, type: 3}
-      propertyPath: cursorMapping.Array.data[3].texture
-      value: 
-      objectReference: {fileID: 2800000, guid: 2e71a8202d3b4a3448ec85ced5a40265, type: 3}
-    - target: {fileID: 2499140, guid: 75ce75d24a2ac4644b8fe4c295c3649c, type: 3}
-      propertyPath: cursorMapping.Array.data[4].texture
-      value: 
-      objectReference: {fileID: 2800000, guid: f8c873f1e53e83f4aabf342d6be1dfc3, type: 3}
     - target: {fileID: 2499141, guid: 75ce75d24a2ac4644b8fe4c295c3649c, type: 3}
       propertyPath: m_Height
       value: 2.21
@@ -589,14 +545,6 @@ PrefabInstance:
     - target: {fileID: 2499141, guid: 75ce75d24a2ac4644b8fe4c295c3649c, type: 3}
       propertyPath: m_Radius
       value: 0.36
-      objectReference: {fileID: 0}
-    - target: {fileID: 2468186198498342770, guid: 75ce75d24a2ac4644b8fe4c295c3649c, type: 3}
-      propertyPath: levelUpPrefab
-      value: 
-      objectReference: {fileID: 1935474566410380145, guid: 948b932a450ceb1408246078f0adf2ce, type: 3}
-    - target: {fileID: 2468186198498342770, guid: 75ce75d24a2ac4644b8fe4c295c3649c, type: 3}
-      propertyPath: shouldUseModifiers
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6675166130882329003, guid: 75ce75d24a2ac4644b8fe4c295c3649c, type: 3}
       propertyPath: m_RootOrder
@@ -649,7 +597,7 @@ PrefabInstance:
     - target: {fileID: 8975219743559979288, guid: 75ce75d24a2ac4644b8fe4c295c3649c, type: 3}
       propertyPath: defaultWeapon
       value: 
-      objectReference: {fileID: 11400000, guid: 5f3e25dee67880c4ba3e87116eb5c659, type: 2}
+      objectReference: {fileID: 11400000, guid: 7e0c2412151fe8e4faba352498ee1116, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

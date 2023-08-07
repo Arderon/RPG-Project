@@ -185,6 +185,14 @@ PrefabInstance:
       propertyPath: uniqueIdentifier
       value: player
       objectReference: {fileID: 0}
+    - target: {fileID: 5660769430175704394, guid: 12d42923c011fce46a1343a9cd844958, type: 3}
+      propertyPath: levelUpPrefab
+      value: 
+      objectReference: {fileID: 1935474566410380145, guid: 948b932a450ceb1408246078f0adf2ce, type: 3}
+    - target: {fileID: 5660769430175704394, guid: 12d42923c011fce46a1343a9cd844958, type: 3}
+      propertyPath: shouldUseModifiers
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -247,8 +255,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20741732105e87c4d9e29f073e5ce844, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cursorMapping: []
-  navPathMaxLength: 0
+  cursorMapping:
+  - type: 0
+    texture: {fileID: 2800000, guid: 21628736160fcc9488493401da3ef621, type: 3}
+    hotspot: {x: 0, y: 0}
+  - type: 1
+    texture: {fileID: 2800000, guid: 6fdfcd4167ed5e7488584241bb671bb2, type: 3}
+    hotspot: {x: 0, y: 0}
+  - type: 2
+    texture: {fileID: 2800000, guid: 2d18e23e3ce249b4489b8bcdd02d3f48, type: 3}
+    hotspot: {x: 0, y: 0}
+  - type: 3
+    texture: {fileID: 2800000, guid: 2e71a8202d3b4a3448ec85ced5a40265, type: 3}
+    hotspot: {x: 0, y: 0}
+  - type: 4
+    texture: {fileID: 2800000, guid: f8c873f1e53e83f4aabf342d6be1dfc3, type: 3}
+    hotspot: {x: 0, y: 0}
+  navPathMaxLength: 40
 --- !u!114 &8548434468370630079
 MonoBehaviour:
   m_ObjectHideFlags: 0
