@@ -1,4 +1,5 @@
 using RPG.Control;
+using RPG.Movement;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -53,9 +54,9 @@ namespace RPG.Combat
 
         public bool HandleRaycast(PlayerController playerController)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(1))
             {
-                PickupWeapon(playerController.GetComponent<Fighter>());
+                playerController.GetComponent<Mover>().MoveTo(transform.position);
             }
             return true;
         }

@@ -247,6 +247,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20741732105e87c4d9e29f073e5ce844, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cursorMapping: []
+  navPathMaxLength: 0
 --- !u!114 &8548434468370630079
 MonoBehaviour:
   m_ObjectHideFlags: 0

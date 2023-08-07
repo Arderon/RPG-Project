@@ -13,6 +13,7 @@ namespace RPG.Control
     public class AIController : MonoBehaviour
     {
         [SerializeField] float patrolSpeed;
+        [SerializeField] float runSpeed = 3.5f;
         [SerializeField] float chaseDistance = 5f;
         [SerializeField] float suspiciosTime = 3f;
         [SerializeField] float dwellTime = 2f;
@@ -123,7 +124,7 @@ namespace RPG.Control
 
         private void AttackBehaviour()
         {
-            mover.SetSpeed();
+            mover.SetSpeed(runSpeed);
             fighter.Atack(player);
         }
 

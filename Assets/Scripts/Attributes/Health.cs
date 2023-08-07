@@ -2,11 +2,13 @@
 using UnityEngine;
 using RPG.Stats;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
+using UnityEngine.Events;
 
 namespace RPG.Atrributes
 {
     public class Health : MonoBehaviour, ISaveable
     {
+        [SerializeField] UnityEvent takeDamage;
         float health;
         bool isDead = false;
 
@@ -46,6 +48,7 @@ namespace RPG.Atrributes
         private void AwardExperiance(GameObject instigator)
         {
             float xpReward = gameObject.GetComponent<BaseStats>().GetStat(Stat.ExperianceReward);
+            if (instigator.GetComponent<Experiance>() == null) return;
             instigator.GetComponent<Experiance>().GainExperiance(xpReward);
         }
 
@@ -54,6 +57,7 @@ namespace RPG.Atrributes
             print(gameObject.name + " took damage: " + damage);
 
             health = Mathf.Max(health - damage, 0);
+            takeDamage.Invoke();
             if (health == 0)
             {
                 Die(instigator);
