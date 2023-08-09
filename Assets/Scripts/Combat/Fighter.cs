@@ -14,9 +14,9 @@ namespace RPG.Combat
         [SerializeField] Transform rightHand = null;
         [SerializeField] Transform leftHand = null;
         [SerializeField] Transform hips = null;
-        [SerializeField] Weapon defaultWeapon = null;
+        [SerializeField] WeaponConfig defaultWeapon = null;
 
-        private Weapon currentWeapon;
+        private WeaponConfig currentWeaponConfig;
         private GameObject currentWeaponObject;
         private float timeSinceLastHit;
         private Health target;
@@ -29,7 +29,7 @@ namespace RPG.Combat
             animator = GetComponent<Animator>();
             timeSinceLastHit = timeBetweenHit;
 
-            if(currentWeapon == null)
+            if(currentWeaponConfig == null)
             {
                 EquipWeapon(defaultWeapon);
             }
@@ -49,7 +49,7 @@ namespace RPG.Combat
 
             if (target.GetComponent<Health>().IsDead()) return;
 
-            bool isInRange = Vector3.Distance(transform.position, target.transform.position) < currentWeapon.GetRange();
+            bool isInRange = Vector3.Distance(transform.position, target.transform.position) < currentWeaponConfig.GetRange();
             if (!isInRange)
             {
                 mover.MoveTo(target.transform.position);
@@ -87,7 +87,7 @@ namespace RPG.Combat
         {
             if (stat == Stat.Damage)
             {
-                yield return currentWeapon.GetDamage();
+                yield return currentWeaponConfig.GetDamage();
             }
         }
 
@@ -95,7 +95,7 @@ namespace RPG.Combat
         {
             if (stat == Stat.Damage)
             {
-                yield return currentWeapon.GetPercentageBonus();
+                yield return currentWeaponConfig.GetPercentageBonus();
             }
         }
 
@@ -124,13 +124,15 @@ namespace RPG.Combat
             if (target == null) return;
             float damage = GetComponent<BaseStats>().GetStat(Stat.Damage);
 
-            if (currentWeapon.HasProjectile())
+            if (currentWeaponConfig.HasProjectile())
             {
-                currentWeapon.LaunchProjectile(rightHand, leftHand, target, gameObject, damage);
+                currentWeaponConfig.LaunchProjectile(rightHand, leftHand, target, gameObject, damage);
             }
             else
             {
                 target.TakeDamage(gameObject, damage);
+                if (currentWeaponObject == null) return;
+                currentWeaponObject.GetComponent<Weapon>().OnHit();
             }
         }
 
@@ -152,11 +154,11 @@ namespace RPG.Combat
 
         }
 
-        public void EquipWeapon(Weapon weapon)
+        public void EquipWeapon(WeaponConfig weapon)
         {
             Destroy(currentWeaponObject);
             currentWeaponObject = weapon.SpawnWeapon(rightHand, leftHand, GetComponent<Animator>());
-            currentWeapon = weapon;        
+            currentWeaponConfig = weapon;        
         }
 
         public Transform GetHips()
@@ -164,9 +166,9 @@ namespace RPG.Combat
             return hips;
         }
 
-        public Weapon GetCurrentWeapon()
+        public WeaponConfig GetCurrentWeapon()
         {
-            return currentWeapon;
+            return currentWeaponConfig;
         }
 
         public Health GetTarget()
@@ -176,14 +178,14 @@ namespace RPG.Combat
 
         public object CaptureState()
         {
-            if (currentWeapon == null) return null;
-            return currentWeapon.name;
+            if (currentWeaponConfig == null) return null;
+            return currentWeaponConfig.name;
         }
 
         public void RestoreState(object state)
         {
             string weaponName = (string)state;
-            Weapon weapon = Resources.Load<Weapon>(weaponName);
+            WeaponConfig weapon = Resources.Load<WeaponConfig>(weaponName);
             EquipWeapon(weapon);
         }
     }
