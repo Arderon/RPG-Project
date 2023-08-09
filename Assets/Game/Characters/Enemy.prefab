@@ -185,6 +185,22 @@ PrefabInstance:
       propertyPath: health
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 7483539788783082368, guid: 12d42923c011fce46a1343a9cd844958, type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7483539788783082368, guid: 12d42923c011fce46a1343a9cd844958, type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 4536155366863331464}
+    - target: {fileID: 7483539788783082368, guid: 12d42923c011fce46a1343a9cd844958, type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Agreevate
+      objectReference: {fileID: 0}
+    - target: {fileID: 7483539788783082368, guid: 12d42923c011fce46a1343a9cd844958, type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: RPG.Control.AIController, Assembly-CSharp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -252,9 +268,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patrolSpeed: 0
   runSpeed: 3.5
-  chaseDistance: 5
+  visionDistance: 17.5
+  detectionRadius: 5
   suspiciosTime: 5
   dwellTime: 2
+  aggrevatedTime: 5
+  shoutRadius: 5
   patrolPath: {fileID: 0}
 --- !u!114 &6531061307705723743
 MonoBehaviour:

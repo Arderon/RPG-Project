@@ -14,15 +14,19 @@ namespace RPG.Control
     {
         [SerializeField] float patrolSpeed;
         [SerializeField] float runSpeed = 3.5f;
-        [SerializeField] float chaseDistance = 5f;
+        [SerializeField] float visionDistance = 20f;
+        [SerializeField] float detectionRadius = 5f;
         [SerializeField] float suspiciosTime = 3f;
         [SerializeField] float dwellTime = 2f;
+        [SerializeField] float aggrevatedTime = 5f;
+        [SerializeField] float shoutRadius = 5f;
         [SerializeField] PatrolPath patrolPath;
 
         private GameObject player;
         private Vector3 guardingPosition;
         private float timeSinceLastSawPlayer = Mathf.Infinity;
         private float timeSinceStop = Mathf.Infinity;
+        private float timeSinceAggrevated = Mathf.Infinity;
         private int currentWaypointIndex;
 
 
@@ -50,10 +54,10 @@ namespace RPG.Control
                 return;
             }
 
-            if (CanAttack())
+            if (fighter.CanAttack(player) && IsAggrevated())
             {
                 AttackBehaviour();
-                timeSinceLastSawPlayer = 0;
+                
             }
             else if (timeSinceLastSawPlayer < suspiciosTime)
             {
@@ -66,10 +70,38 @@ namespace RPG.Control
             UpdateTimers();
         }
 
+        public bool IsAggrevated()
+        {
+            if (DistanceToPlayer() > visionDistance) return false;
+            float distanceToPlayer =  DistanceToPlayer();
+            return distanceToPlayer < detectionRadius || timeSinceAggrevated < aggrevatedTime;
+        }
+
+        public void Agreevate()
+        {
+            timeSinceAggrevated = 0;
+        }
+
+        private void AgreevateNearbyEnemyes()
+        {
+            RaycastHit[] reycastHits = Physics.SphereCastAll(transform.position, shoutRadius, Vector3.up, 0);
+            print("FIIIIIGHT");
+            foreach(RaycastHit hit in reycastHits)
+            {
+                AIController enemy = hit.transform.GetComponent<AIController>();
+                if (enemy == null) return;
+                if (!enemy.IsAggrevated())
+                {
+                    enemy.Agreevate();
+                }
+            }
+        }
+
         private void UpdateTimers()
         {
             timeSinceLastSawPlayer += Time.deltaTime;
             timeSinceStop += Time.deltaTime;
+            timeSinceAggrevated += Time.deltaTime;
         }
 
         private void PatrolBehaviour()
@@ -126,11 +158,9 @@ namespace RPG.Control
         {
             mover.SetSpeed(runSpeed);
             fighter.Atack(player);
-        }
-
-        private bool CanAttack()
-        {
-            return DistanceToPlayer() <= chaseDistance && !health.IsDead();
+            timeSinceLastSawPlayer = 0;
+            Agreevate();
+            AgreevateNearbyEnemyes();
         }
 
         private float DistanceToPlayer()
@@ -142,7 +172,9 @@ namespace RPG.Control
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(transform.position, chaseDistance);
+            Gizmos.DrawWireSphere(transform.position, detectionRadius);
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, visionDistance);
         }
     }
 }
