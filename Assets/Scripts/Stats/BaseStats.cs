@@ -39,7 +39,6 @@ namespace RPG.Stats
             {
                 currentLevel = newLevel;
                 PlayLevelUpEffect();
-                print("Levelled up");
             }
         }
 

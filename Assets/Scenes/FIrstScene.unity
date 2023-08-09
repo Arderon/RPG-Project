@@ -1788,6 +1788,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Core
       objectReference: {fileID: 0}
+    - target: {fileID: 7213794314841723311, guid: b1280d4b93b777d4aa54a2bfbf4f9f8b, type: 3}
+      propertyPath: navPathMaxLength
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 8437684049542394287, guid: b1280d4b93b777d4aa54a2bfbf4f9f8b, type: 3}
       propertyPath: rotationSpeed
       value: 180

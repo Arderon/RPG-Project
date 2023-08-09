@@ -117,6 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c414d34b4cfe2241ac8e66526b5817e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  navPathMaxLength: 60
 --- !u!95 &1646227035
 Animator:
   serializedVersion: 5
