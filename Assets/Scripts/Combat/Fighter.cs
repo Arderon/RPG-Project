@@ -112,7 +112,8 @@ namespace RPG.Combat
         public bool CanAttack(GameObject enemy)
         {
             if (enemy.GetComponent<Health>().IsDead()) return false;
-            if (!GetComponent<Mover>().CanMoveTo(gameObject.transform.position)) return false;
+            if (!GetComponent<Mover>().CanMoveTo(gameObject.transform.position) &&
+                !IsInAttackRange(enemy.transform.position)) return false;
             return true;
         }
 
@@ -157,6 +158,11 @@ namespace RPG.Combat
             Destroy(currentWeaponObject);
             currentWeaponObject = weapon.SpawnWeapon(rightHand, leftHand, GetComponent<Animator>());
             currentWeaponConfig = weapon;        
+        }
+
+        private bool IsInAttackRange(Vector3 target)
+        {
+            return Vector3.Distance(target, gameObject.transform.position) <= currentWeaponConfig.GetRange();
         }
 
         public Transform GetHips()
