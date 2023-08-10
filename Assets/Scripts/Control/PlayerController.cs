@@ -25,6 +25,7 @@ namespace RPG.Control
         }
 
         [SerializeField] CursorMapping[] cursorMapping = null;
+        [SerializeField] float raycastRadius = 1f;
 
         private void Start()
         {
@@ -76,7 +77,7 @@ namespace RPG.Control
 
         private RaycastHit[] SortedHits()
         {
-            RaycastHit[] hits = Physics.RaycastAll(CursorRay());
+            RaycastHit[] hits = Physics.SphereCastAll(CursorRay(), raycastRadius);
             float[] distances = new float[hits.Length];
             for (int i = 0; i < hits.Length; i++)
             {
