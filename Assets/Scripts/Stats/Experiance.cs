@@ -1,3 +1,4 @@
+using RPG.Atrributes;
 using RPG.Saving;
 using System;
 using UnityEngine;
@@ -10,6 +11,12 @@ namespace RPG.Stats
 
         public event Action onExperianceGained;
         public event Action onLevelUp;
+        private BaseStats stats;
+
+        private void Start()
+        {
+            stats = GetComponent<BaseStats>();
+        }
 
         public void GainExperiance(float experiance)
         {
@@ -17,11 +24,23 @@ namespace RPG.Stats
             onExperianceGained();
         }
 
+        public void LevelUp()
+        {
+            onLevelUp();
+        }
+
         public float GetExperiance()
         {
             return experiancePoints;
         }
-
+        public float GetPercentage()
+        {
+            if (stats.GetLevel() == 1)
+            {
+                return experiancePoints / stats.GetStat(Stat.ExperianceToLevelUp);
+            }
+            return (experiancePoints - stats.GetBaseStatPrevious(Stat.ExperianceToLevelUp)) / (stats.GetStat(Stat.ExperianceToLevelUp) - stats.GetBaseStatPrevious(Stat.ExperianceToLevelUp));
+        }
         public object CaptureState()
         {
             return experiancePoints;

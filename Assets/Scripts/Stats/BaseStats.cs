@@ -38,11 +38,12 @@ namespace RPG.Stats
             if(newLevel > currentLevel)
             {
                 currentLevel = newLevel;
-                PlayLevelUpEffect();
+                GetComponent<Experiance>().onLevelUp += PlayLevelUpEffect;
+                GetComponent<Experiance>().LevelUp();
             }
         }
 
-        private void PlayLevelUpEffect()
+        public void PlayLevelUpEffect()
         {
             levelUpEffect = Instantiate(levelUpPrefab, gameObject.transform.position, gameObject.transform.rotation);
         }
@@ -61,6 +62,12 @@ namespace RPG.Stats
         private float GetBaseStat(Stat stat)
         {
             return progression.GetStat(stat, characterClass, GetLevel());
+        }
+
+        public float GetBaseStatPrevious(Stat stat)
+        {
+            if (GetLevel() == 1) return GetBaseStat(stat);
+            return progression.GetStat(stat, characterClass, GetLevel() - 1);
         }
 
         private float GetAdditiveModifier(Stat stat)

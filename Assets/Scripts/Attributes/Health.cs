@@ -24,13 +24,14 @@ namespace RPG.Atrributes
             Experiance experiance = GetComponent<Experiance>();
             if (experiance != null)
             {
-                experiance.onExperianceGained += RestoreHealth;
+                experiance.onLevelUp += RestoreHealth;
             }
         }
 
         public void RestoreHealth()
         {
             health = GetComponent<BaseStats>().GetStat(Stat.Health);
+            print("Restoring health");
         }
 
         public bool IsDead()
@@ -43,7 +44,7 @@ namespace RPG.Atrributes
             if (isDead) return;
             isDead = true;
             GetComponent<Animator>().SetTrigger("die");
-
+            GetComponent<Collider>().enabled = false;
         }
 
         private void AwardExperiance(GameObject instigator)
@@ -66,6 +67,11 @@ namespace RPG.Atrributes
                 }
                 AwardExperiance(instigator);
             }
+        }
+
+        public float GetHealth()
+        {
+            return health;
         }
 
         public float GetPercentage()
