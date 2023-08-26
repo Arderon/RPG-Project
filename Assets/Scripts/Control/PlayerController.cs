@@ -150,7 +150,7 @@ namespace RPG.Control
 
         private Ray CursorRay()
         {
-            return Camera.main.ScreenPointToRay(Input.mousePosition);
+            return UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition);
         }
 
         public void EnableControlls()
