@@ -31,7 +31,6 @@ namespace RPG.Atrributes
         public void RestoreHealth()
         {
             health = GetComponent<BaseStats>().GetStat(Stat.Health);
-            print("Restoring health");
         }
 
         public bool IsDead()

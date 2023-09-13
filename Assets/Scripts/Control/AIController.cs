@@ -85,7 +85,6 @@ namespace RPG.Control
         private void AgreevateNearbyEnemyes()
         {
             RaycastHit[] reycastHits = Physics.SphereCastAll(transform.position, shoutRadius, Vector3.up, 0);
-            print("FIIIIIGHT");
             foreach(RaycastHit hit in reycastHits)
             {
                 AIController enemy = hit.transform.GetComponent<AIController>();
